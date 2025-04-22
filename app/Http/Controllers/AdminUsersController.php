@@ -84,20 +84,20 @@ class AdminUsersController extends Controller
     }
 
     //  Change user role
-    public function changeRole(ChangeUserRoleRequest $request, $id)
-    {
-        $user = User::find($id);
+    // public function changeRole(ChangeUserRoleRequest $request, $id)
+    // {
+    //     $user = User::find($id);
 
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
+    //     if (!$user) {
+    //         return response()->json(['message' => 'User not found'], 404);
+    //     }
 
-        $user->role = $request->validated()['role'];
-        $user->save();
+    //     $user->role = $request->validated()['role'];
+    //     $user->save();
 
-        return response()->json([
-            'message' => 'User role updated successfully',
-            'user' => new UserResponse($user)
-        ]);
-    }
+    //     return response()->json([
+    //         'message' => 'User role updated successfully',
+    //         'user' => new UserResponse($user)
+    //     ]);
+    // }
 }

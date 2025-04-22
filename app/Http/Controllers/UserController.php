@@ -17,7 +17,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // ✅ Register new user
+    //  Register new user
     public function register(RegisterUserRequest $request)
     {
         $validated = $request->validated();
@@ -31,7 +31,7 @@ class UserController extends Controller
         ], 201);
     }
 
-    // ✅ Login user
+    //  Login user
     public function login(LoginUserRequest $request)
     {
         $validated = $request->validated();
@@ -50,7 +50,7 @@ class UserController extends Controller
         ], 401);
     }
 
-    // ✅ Show profile using ID (no session/token needed)
+    //  Show profile using ID (no session/token needed)
     public function showProfile($id)
     {
         $user = User::find($id);
@@ -68,7 +68,7 @@ class UserController extends Controller
     }
 
 
-    // ✅ Update profile using user ID (no session/token needed)
+    //  Update profile using user ID (no session/token needed)
     public function updateProfile(UpdateProfileRequest $request, $id)
     {
         $user = User::find($id);
@@ -93,7 +93,7 @@ class UserController extends Controller
         ]);
     }
 
-    // ✅ change password using user ID (no session/token needed)
+    //  change password using user ID (no session/token needed)
     public function changePassword(ChangePasswordRequest $request, $id)
     {
         $user = User::find($id);
@@ -118,7 +118,7 @@ class UserController extends Controller
     }
 
 
-    // ✅ Logout user
+    //  Logout user
     public function logout(Request $request)
     {
         // Auth::logout();

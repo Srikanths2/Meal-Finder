@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Middleware\CheckRole;
+// use App\Http\Middleware\CheckRole;
 
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\CategoryController;
@@ -46,7 +46,7 @@ Route::delete('/categories/{id}', [FoodCategoryController::class, 'destroy']);
     Route::post('/users', [AdminUsersController::class, 'create']);
     Route::put('/users/{id}', [AdminUsersController::class, 'update']);
     Route::delete('/users/{id}', [AdminUsersController::class, 'destroy']);
-    Route::patch('/users/{id}/role', [AdminUsersController::class, 'changeRole']);
+    // Route::patch('/users/{id}/role', [AdminUsersController::class, 'changeRole']);
 // });
 
 Route::post('/add-category',[CategoryController::class,'storeCategory']);
