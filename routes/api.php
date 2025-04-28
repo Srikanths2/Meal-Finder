@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\WishlistController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -55,9 +56,9 @@ Route::get('/category/{id}',[CategoryController::class,'getCategoryById']);
 Route::put('/update-category/{id}',[CategoryController::class,'updateCategory']);
 Route::delete('/delete-category/{id}',[CategoryController::class,'deleteCategory']);
 
-// // Routes for Details of Food
-// Route::get('details-of-food', [DetailsOfFoodController::class, 'index']); // Get all food details
-// Route::post('details-of-food', [DetailsOfFoodController::class, 'store']); // Create a new food detail
-// Route::get('details-of-food/{item_name}', [DetailsOfFoodController::class, 'show']); // Get food details by item name
-// Route::put('details-of-food/{item_name}', [DetailsOfFoodController::class, 'update']); // Update food details by item name
-// Route::delete('details-of-food/{item_name}', [DetailsOfFoodController::class, 'destroy']); // Delete food details by item name
+// wishlist routes
+// Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::post('/wishlist', [WishlistController::class, 'store']);
+    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
+// });
