@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -58,7 +59,13 @@ Route::delete('/delete-category/{id}',[CategoryController::class,'deleteCategory
 
 // wishlist routes
 // Route::middleware('auth')->group(function () {
-    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::get('/wishlist/{id}', [WishlistController::class, 'index']);
     Route::post('/wishlist', [WishlistController::class, 'store']);
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
 // });
+
+// cart routes 
+Route::get('/cart/{id}', [CartController::class, 'index']);
+Route::post('/cart', [CartController::class, 'store']);
+Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+Route::put('/cart/{id}', [CartController::class, 'updateQuantity']);

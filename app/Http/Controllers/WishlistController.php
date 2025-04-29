@@ -9,14 +9,20 @@ use Illuminate\Http\Request;
 class WishlistController extends Controller
 {
     // Get all wishlist items for logged-in user
-    public function index(Request $request)
+    public function index($id)
     {
 
-        $wishlist = Wishlist::where('user_id', $request->input('user_id'))
+        $wishlist = Wishlist::where('user_id', $id) 
                     ->with('foodCategory')
                     ->get();
 
-        return response()->json($wishlist);
+        if($wishlist->isEmpty()) {
+            return response()->json(['message' => 'No items found in wishlist'], 200);
+        }
+        return response()->json([
+            'message' => 'Wishlist items retrieved successfully',
+            'wishlist' => $wishlist,
+        ], 200);
     }
 
     // Add a food item to wishlist
@@ -45,10 +51,9 @@ class WishlistController extends Controller
     }
 
     // Remove an item from wishlist
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-
-        $wishlist = Wishlist::where('user_id', $request->user_id)->where('id', $id)->first();
+        $wishlist = Wishlist::find($id);
 
         if (!$wishlist) {
             return response()->json(['message' => 'Wishlist item not found'], 404);

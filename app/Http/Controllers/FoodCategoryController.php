@@ -22,18 +22,6 @@ class FoodCategoryController extends Controller
     /**
      * GET by category name only
      */
-    // public function showByCategory($categoryName)
-    // {
-    //     $categories = FoodCategory::whereHas('category', function ($query) use ($categoryName) {
-    //         $query->whereRaw('LOWER(name) = ?', [strtolower($categoryName)]);
-    //     })->with('category:id,name')->get();
-
-    //     if ($categories->isEmpty()) {
-    //         return response()->json(['message' => 'No matching categories found'], 404);
-    //     }
-
-    //     return response()->json($categories, 200);
-    // }
     public function showByCategory($categorys)
     {
         // First, find the category by name (case insensitive)
@@ -54,8 +42,6 @@ class FoodCategoryController extends Controller
     
         return response()->json($items, 200);
     }
-    
-
 
 
     public function show($id)
@@ -69,24 +55,6 @@ class FoodCategoryController extends Controller
         return response()->json($item, 200);
     }
 
-    /**
-     * GET by category name AND partial food item name
-     */
-    // public function showByCategoryAndName($categoryName, $name)
-    // {
-    //     $items = FoodCategory::whereHas('category', function ($query) use ($categoryName) {
-    //         $query->whereRaw('LOWER(name) = ?', [strtolower($categoryName)]);
-    //     })
-    //     ->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($name) . '%'])
-    //     ->with('category:id,name')
-    //     ->get();
-
-    //     if ($items->isEmpty()) {
-    //         return response()->json(['message' => 'No matching items found in this category'], 404);
-    //     }
-
-    //     return response()->json($items, 200);
-    // }
 
     /**
      * POST create new food item
