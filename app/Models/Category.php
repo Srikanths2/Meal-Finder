@@ -15,6 +15,6 @@ class Category extends Model
     // }
     public function foodCategories()
     {
-        return $this->hasMany(FoodCategory::class, 'category_id', 'id'); // correct usage
+        return $this->hasMany(Product::class, 'category_id', 'id'); // correct usage
     }
 }

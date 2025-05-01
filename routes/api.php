@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 // use App\Http\Middleware\CheckRole;
 
-use App\Http\Controllers\FoodCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\UserController;
@@ -27,19 +27,19 @@ Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 Route::post('/logout', [UserController::class, 'logout']);
 
 // Publicly accessible (index & show)
-Route::get('/categories', [FoodCategoryController::class, 'index']);
-Route::get('/categories/{id}', [FoodCategoryController::class, 'show']);
-Route::get('/categories/{categorys}/category', [FoodCategoryController::class, 'showByCategory']);
-Route::get('/categories/{category}/{name}', [FoodCategoryController::class, 'showByCategoryAndName']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/products/{products}/product', [ProductController::class, 'showByProduct']);
+// Route::get('/categories/{category}/{name}', [ProductController::class, 'showByCategoryAndName']);
 // Admin-only
-Route::post('/categories', [FoodCategoryController::class, 'store']);
-Route::put('/categories/{id}', [FoodCategoryController::class, 'update']);
-Route::put('/categories/{id}/toggle-status', [FoodCategoryController::class, 'toggleStatus']);
-Route::delete('/categories/{id}', [FoodCategoryController::class, 'destroy']);
+Route::post('/products', [ProductController::class, 'store']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
+Route::put('/products/{id}/toggle-status', [ProductController::class, 'toggleStatus']);
+Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-// Route::post('/categories', [FoodCategoryController::class, 'store'])->middleware('admin');
-// Route::put('/categories/{category}/{name}', [FoodCategoryController::class, 'update'])->middleware('admin');
-// Route::delete('/categories/{category}/{name}', [FoodCategoryController::class, 'destroy'])->middleware('admin');
+// Route::post('/categories', [ProductController::class, 'store'])->middleware('admin');
+// Route::put('/categories/{category}/{name}', [ProductController::class, 'update'])->middleware('admin');
+// Route::delete('/categories/{category}/{name}', [ProductController::class, 'destroy'])->middleware('admin');
 
 
 // Route::middleware(['admin'])->group(function () {
@@ -69,3 +69,4 @@ Route::get('/cart/{id}', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 Route::put('/cart/{id}', [CartController::class, 'updateQuantity']);
+

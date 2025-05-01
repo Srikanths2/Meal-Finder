@@ -11,7 +11,7 @@ class CartController extends Controller
     public function index($id)
     {
         $cart = Cart::where('user_id', $id)
-                    ->with('foodCategory')
+                    ->with('product') // Assuming 'product' is the correct relation name
                     ->get();
 
         $count = $cart->sum('quantity'); // Sum of all item quantities
@@ -28,11 +28,11 @@ class CartController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'food_category_id' => 'required|exists:food_categories,id',
+            'product_id' => 'required|exists:products,id',
         ]);
 
         $cart = Cart::where('user_id', $request->input('user_id'))
-                    ->where('food_category_id', $request->input('food_category_id'))
+                    ->where('product_id', $request->input('product_id'))
                     ->first();
 
         if ($cart) {
@@ -48,7 +48,7 @@ class CartController extends Controller
             // Create new item with quantity = 1
             $cart = Cart::create([
                 'user_id' => $request->input('user_id'),
-                'food_category_id' => $request->input('food_category_id'),
+                'product_id' => $request->input('product_id'),
                 'quantity' => 1,
             ]);
 
@@ -58,16 +58,15 @@ class CartController extends Controller
             ], 201);
         }
     }
-
-
+    
     public function destroy(Request $request, $id)
     {
-        $cart = Cart::where('user_id', $request->input('user_id'))->where('id', $id)->first();
+        $cart = Cart::where('id', $id)->first();
         if (!$cart) {
             return response()->json(['message' => 'Cart item not found'], 404);
         }
         $cart->delete();
-        return response()->json(['message' => 'Item removed from cart']);
+        return response()->json(['message' => 'Item removed from cart'],200);
     }
 
     // Update the quantity of a food item in the cart
@@ -84,7 +83,7 @@ class CartController extends Controller
                     ->first();
 
         if (!$cart) {
-            return response()->json(['message' => 'Cart item not found'], 200);
+            return response()->json(['message' => 'Cart item not found'], 404);
         }
 
         // Check if action is valid

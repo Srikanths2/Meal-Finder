@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FoodCategory extends Model
+class Product extends Model
 {
     use HasFactory;
 
     // Define the table name (optional if the table name is the plural form of the model)
-    protected $table = 'food_categories';
+    protected $table = 'products'; // Assuming the table name is 'products'
 
     // Define the fillable fields for mass assignment
     protected $fillable = [

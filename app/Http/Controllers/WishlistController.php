@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
-// use App\Models\FoodCategory;
+
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -13,7 +13,7 @@ class WishlistController extends Controller
     {
 
         $wishlist = Wishlist::where('user_id', $id) 
-                    ->with('foodCategory')
+                    ->with('product') // Assuming 'product' is the correct relation name
                     ->get();
 
         if($wishlist->isEmpty()) {
@@ -28,14 +28,13 @@ class WishlistController extends Controller
     // Add a food item to wishlist
     public function store(Request $request)
     {
-
         $request->validate([
-            'food_category_id' => 'required|exists:food_categories,id',
+            'product_id' => 'required|exists:products,id',
         ]);
 
         // Check if already exists
         $exists = Wishlist::where('user_id', $request->user_id)
-                          ->where('food_category_id', $request->food_category_id)
+                          ->where('product_id', $request->product_id)
                           ->exists();
 
         if ($exists) {
@@ -44,7 +43,7 @@ class WishlistController extends Controller
 
         $wishlist = Wishlist::create([
             'user_id' =>$request->user_id,
-            'food_category_id' => $request->food_category_id,
+            'product_id' => $request->product_id,
         ]);
 
         return response()->json(['message' => 'Item added to wishlist', 'wishlist' => $wishlist], 201);
