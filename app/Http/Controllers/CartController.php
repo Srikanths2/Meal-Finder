@@ -14,7 +14,7 @@ class CartController extends Controller
                     ->with('product') // Assuming 'product' is the correct relation name
                     ->get();
 
-        $count = $cart->sum('quantity'); // Sum of all item quantities
+        $count = $cart->count('product_id'); // Sum of all item quantities
 
         return response()->json([
             'message' => $count > 0 ? 'Cart items retrieved successfully' : 'No items found in cart',

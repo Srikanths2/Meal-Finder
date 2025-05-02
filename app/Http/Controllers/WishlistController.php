@@ -15,12 +15,13 @@ class WishlistController extends Controller
         $wishlist = Wishlist::where('user_id', $id) 
                     ->with('product') // Assuming 'product' is the correct relation name
                     ->get();
-
+        $count = $wishlist->count('product_id');
         if($wishlist->isEmpty()) {
             return response()->json(['message' => 'No items found in wishlist'], 200);
         }
         return response()->json([
             'message' => 'Wishlist items retrieved successfully',
+            'count' => $count,
             'wishlist' => $wishlist,
         ], 200);
     }
@@ -61,5 +62,21 @@ class WishlistController extends Controller
         $wishlist->delete();
 
         return response()->json(['message' => 'Item removed from wishlist']);
+    }
+
+    public function clearWishlist($userId)
+    {
+        try {
+            Wishlist::where('user_id', $userId)->delete();
+
+            return response()->json([
+                'message' => 'Wishlist cleared successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to clear wishlist.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -18,7 +18,6 @@ use App\Http\Controllers\CartController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/profile/{id}', [UserController::class, 'showProfile']);
@@ -41,7 +40,6 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 // Route::put('/categories/{category}/{name}', [ProductController::class, 'update'])->middleware('admin');
 // Route::delete('/categories/{category}/{name}', [ProductController::class, 'destroy'])->middleware('admin');
 
-
 // Route::middleware(['admin'])->group(function () {
     Route::get('/users', [AdminUsersController::class, 'index']);
     Route::get('/users/{id}', [AdminUsersController::class, 'show']);
@@ -62,6 +60,7 @@ Route::delete('/delete-category/{id}',[CategoryController::class,'deleteCategory
     Route::get('/wishlist/{id}', [WishlistController::class, 'index']);
     Route::post('/wishlist', [WishlistController::class, 'store']);
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
+    Route::delete('/wishlist/clear/{userId}', [WishlistController::class, 'clearWishlist']);
 // });
 
 // cart routes 
