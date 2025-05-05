@@ -55,7 +55,7 @@ class CartController extends Controller
             return response()->json([
                 'message' => 'Item added to cart with quantity 1',
                 'cart' => $cart
-            ], 201);
+            ], 200);
         }
     }
     

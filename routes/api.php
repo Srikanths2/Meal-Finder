@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -68,4 +69,11 @@ Route::get('/cart/{id}', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 Route::put('/cart/{id}', [CartController::class, 'updateQuantity']);
+
+// checkout routes
+Route::get('/checkout/{user_id}', [CheckoutController::class, 'index']);
+Route::get('/checkout/specific/{id}', [CheckoutController::class, 'show']);
+Route::post('/checkout', [CheckoutController::class, 'store']);
+Route::put('/checkout/{id}', [CheckoutController::class, 'update']);
+Route::delete('/checkout/{id}', [CheckoutController::class, 'destroy']);
 
