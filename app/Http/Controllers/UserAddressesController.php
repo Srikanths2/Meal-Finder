@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Checkout;
+use App\Models\UserAddresses;
 
-class CheckoutController extends Controller
+class UserAddressesController extends Controller
 {
     // Fetch all addresses for a user
     public function index($user_id)
     {
-        $addresses = Checkout::where('user_id', $user_id)->get();
+        $addresses = UserAddresses::where('user_id', $user_id)->get();
 
         if ($addresses->isEmpty()) {
             return response()->json([
@@ -27,9 +27,9 @@ class CheckoutController extends Controller
     // Fetch a specific address by ID
     public function show($id)
     {
-        $checkout = Checkout::find($id);
+        $addresses = UserAddresses::find($id);
 
-        if (!$checkout) {
+        if (!$addresses) {
             return response()->json([
                 'message' => 'Address not found'
             ], 404);
@@ -37,7 +37,7 @@ class CheckoutController extends Controller
 
         return response()->json([
             'message' => 'Address fetched successfully',
-            'data' => $checkout
+            'data' => $addresses
         ], 200);
     }
 
@@ -55,20 +55,20 @@ class CheckoutController extends Controller
             'pincode' => 'required|string|max:10',
         ]);
 
-        $checkout = Checkout::create($request->all());
+        $addresses = UserAddresses::create($request->all());
 
         return response()->json([
             'message' => 'Address added successfully',
-            'data' => $checkout
+            'data' => $addresses
         ], 200);
     }
 
     // Update an address
     public function update(Request $request, $id)
     {
-        $checkout = Checkout::find($id);
+        $addresses = UserAddresses::find($id);
 
-        if (!$checkout) {
+        if (!$addresses) {
             return response()->json([
                 'message' => 'Address not found'
             ], 404);
@@ -84,26 +84,26 @@ class CheckoutController extends Controller
             'pincode' => 'sometimes|required|string|max:10',
         ]);
 
-        $checkout->update($request->all());
+        $addresses->update($request->all());
 
         return response()->json([
             'message' => 'Address updated successfully',
-            'data' => $checkout
+            'data' => $addresses
         ], 200);
     }
 
     // Delete an address
     public function destroy($id)
     {
-        $checkout = Checkout::find($id);
+        $addresses = UserAddresses::find($id);
 
-        if (!$checkout) {
+        if (!$addresses) {
             return response()->json([
                 'message' => 'Address not found'
             ], 404);
         }
 
-        $checkout->delete();
+        $addresses->delete();
 
         return response()->json([
             'message' => 'Address deleted successfully'
