@@ -12,21 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-
             $table->id();
-            // Foreign Key: user who added the item
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            
-            // Foreign Key: food item added to cart
-            $table->foreignId('food_category_id')->constrained('food_categories')->onDelete('cascade');
-            
-            // Optional: Add a quantity column if needed
+
+            // Accept both registered and guest user IDs (string)
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+
+            // Reference to product/food item
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+
+            // Optional: quantity
             $table->integer('quantity')->default(1);
 
             $table->timestamps();
-            
-            // Prevent same food item duplicate in same user's cart
-            $table->unique(['user_id', 'food_category_id']);
+
+            // Prevent duplicate product for the same user
+            $table->unique(['user_id', 'product_id']);
         });
     }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id(); // Primary Key
             $table->unsignedBigInteger('user_id'); // Foreign Key
             $table->string('name');
+            $table->string('email');
             $table->string('phonenumber');
             $table->string('alternate_phone')->nullable(); // Optional field
             $table->text('address');

@@ -14,6 +14,8 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserAddressesController;
+use App\Http\Controllers\OrderController;
+
 
 
 // Route::get('/user', function (Request $request) {
@@ -43,26 +45,26 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 // Route::delete('/categories/{category}/{name}', [ProductController::class, 'destroy'])->middleware('admin');
 
 // Route::middleware(['admin'])->group(function () {
-    Route::get('/users', [AdminUsersController::class, 'index']);
-    Route::get('/users/{id}', [AdminUsersController::class, 'show']);
-    Route::post('/users', [AdminUsersController::class, 'create']);
-    Route::put('/users/{id}', [AdminUsersController::class, 'update']);
-    Route::delete('/users/{id}', [AdminUsersController::class, 'destroy']);
-    // Route::patch('/users/{id}/role', [AdminUsersController::class, 'changeRole']);
+Route::get('/users', [AdminUsersController::class, 'index']);
+Route::get('/users/{id}', [AdminUsersController::class, 'show']);
+Route::post('/users', [AdminUsersController::class, 'create']);
+Route::put('/users/{id}', [AdminUsersController::class, 'update']);
+Route::delete('/users/{id}', [AdminUsersController::class, 'destroy']);
+// Route::patch('/users/{id}/role', [AdminUsersController::class, 'changeRole']);
 // });
 
-Route::post('/add-category',[CategoryController::class,'storeCategory']);
-Route::get('/all-categories',[CategoryController::class,'getAllCategories']);
-Route::get('/category/{id}',[CategoryController::class,'getCategoryById']);
-Route::put('/update-category/{id}',[CategoryController::class,'updateCategory']);
-Route::delete('/delete-category/{id}',[CategoryController::class,'deleteCategory']);
+Route::post('/add-category', [CategoryController::class, 'storeCategory']);
+Route::get('/all-categories', [CategoryController::class, 'getAllCategories']);
+Route::get('/category/{id}', [CategoryController::class, 'getCategoryById']);
+Route::put('/update-category/{id}', [CategoryController::class, 'updateCategory']);
+Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
 // wishlist routes
 // Route::middleware('auth')->group(function () {
-    Route::get('/wishlist/{id}', [WishlistController::class, 'index']);
-    Route::post('/wishlist', [WishlistController::class, 'store']);
-    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
-    Route::delete('/wishlist/clear/{userId}', [WishlistController::class, 'clearWishlist']);
+Route::get('/wishlist/{id}', [WishlistController::class, 'index']);
+Route::post('/wishlist', [WishlistController::class, 'store']);
+Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
+Route::delete('/wishlist/clear/{userId}', [WishlistController::class, 'clearWishlist']);
 // });
 
 // cart routes 
@@ -77,4 +79,10 @@ Route::get('/user_addresses/specific/{id}', [UserAddressesController::class, 'sh
 Route::post('/user_addresses', [UserAddressesController::class, 'store']);
 Route::put('/user_addresses/{id}', [UserAddressesController::class, 'update']);
 Route::delete('/user_addresses/{id}', [UserAddressesController::class, 'destroy']);
+
+// order routes
+Route::post('/orders', [OrderController::class, 'store']);
+Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']);
+Route::get('/orders', [OrderController::class, 'index']);
+Route::get('/orders/{id}', [OrderController::class, 'show']);
 

@@ -47,6 +47,7 @@ class UserAddressesController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'phonenumber' => 'required|string|max:15',
             'alternate_phone' => 'nullable|string|max:15',
             'address' => 'required|string',
@@ -76,6 +77,7 @@ class UserAddressesController extends Controller
 
         $request->validate([
             'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|max:255',
             'phonenumber' => 'sometimes|required|string|max:15',
             'alternate_phone' => 'nullable|string|max:15',
             'address' => 'sometimes|required|string',
