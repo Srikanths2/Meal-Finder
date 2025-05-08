@@ -124,7 +124,6 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         $orderItems = OrderItem::where('order_id', $id)->get();
-        
         if ($orderItems->isEmpty()) {
             return response()->json(['message' => 'No items found for this order'], 404);
         }
