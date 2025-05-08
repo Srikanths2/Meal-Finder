@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'nullable|exists:users,id',
+            'user_id' => 'required',
             'name' => 'required_without:user_id|string|max:255',
             'email' => 'required_without:user_id|email|max:255',
             'phone_number' => 'required|string|max:15',
@@ -69,6 +69,21 @@ class OrderController extends Controller
         return response()->json(['order' => $order]);
     }
 
+    // View orders by user ID
+    public function showByUser($userId)
+    {
+        $orders = Order::with(['user', 'orderItems.product'])
+            ->where('user_id', $userId)
+            ->latest()
+            ->get();
+
+        if (!$orders) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        return response()->json(['orders' => $orders]);
+    }
+
     // Admin: list all orders
     public function index()
     {
@@ -102,5 +117,27 @@ class OrderController extends Controller
             'message' => 'Order status updated successfully',
             'order' => $order->load('orderItems.product')
         ]);
+    }
+
+    // Delete order
+    public function destroy($id)
+    {
+        $order = Order::find($id);
+        $orderItems = OrderItem::where('order_id', $id)->get();
+        
+        if ($orderItems->isEmpty()) {
+            return response()->json(['message' => 'No items found for this order'], 404);
+        }
+        foreach ($orderItems as $item) {
+            $item->delete();
+        }
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        $order->delete();
+
+        return response()->json(['message' => 'Order deleted successfully']);
     }
 }

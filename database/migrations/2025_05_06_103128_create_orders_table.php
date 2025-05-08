@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('user_id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone_number');
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('order_status', ['processing', 'shipped', 'delivered', 'cancelled'])->default('processing');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

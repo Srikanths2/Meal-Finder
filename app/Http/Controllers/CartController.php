@@ -27,7 +27,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'nullable|exists:users,id',
+            'user_id' => 'required|string',
             'product_id' => 'required|exists:products,id',
         ]);
 
@@ -73,7 +73,7 @@ class CartController extends Controller
     public function updateQuantity(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|string',
             'action' => 'nullable|in:increase,decrease,set',
             'quantity' => 'required|integer|min:1', // only required for 'set'
         ]);

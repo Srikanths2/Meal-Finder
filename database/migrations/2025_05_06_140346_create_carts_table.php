@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
 
             // Accept both registered and guest user IDs (string)
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            // $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('user_id')->nullable();
 
             // Reference to product/food item
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
@@ -27,6 +28,7 @@ return new class extends Migration
 
             // Prevent duplicate product for the same user
             $table->unique(['user_id', 'product_id']);
+
         });
     }
 
